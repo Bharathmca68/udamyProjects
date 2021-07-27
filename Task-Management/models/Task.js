@@ -8,10 +8,12 @@ const TaskSchema = new Schema({
   Description: {
     type: String,
     required: true,
+    trim: true,
   },
   Completed: {
     type: Boolean,
     required: true,
+    default: false,
   },
 });
 

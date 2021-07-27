@@ -22,6 +22,9 @@ exports.TaskById = (req, res) => {
 
   TaskMD.findById({ _id: Taskid })
     .then((result) => {
+      if (!result) {
+        return res.status(404).send("Task not found");
+      }
       res.status(201).json({
         message: "Task Fetched",
         Tasks: result,
