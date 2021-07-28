@@ -1,5 +1,21 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
+const path = require("path");
+
+const storage = multer.diskStorage({
+  destination: "./upload/images",
+  filename: (req, file, cb) => {
+    return cb(
+      null,
+      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
+    );
+  },
+});
+
+const upload = multer({
+  storage: storage,
+});
 
 const Taskcontroller = require("../controllers/Task");
 const Usercontroller = require("../controllers/User");
@@ -14,5 +30,7 @@ router.patch("/updatetask/:id", Taskcontroller.UpdateTask);
 // Routes for User
 router.post("/signin", Usercontroller.signin);
 router.post("/login", Usercontroller.login);
+
+router.post("/upload", upload.single("profile"), Usercontroller.imgupload);
 
 module.exports = router;

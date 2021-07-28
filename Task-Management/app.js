@@ -8,7 +8,20 @@ const app = express();
 
 const port = process.env.PORT || 3020;
 
-//middle ware
+//middleware
+
+// app.use((req, res, next) => {
+//   console.log(req.method, req.path); //winston log to be implemented
+//   next();
+// });
+
+//handling maintanance
+// app.use((req, res, next) => {
+//   res.status(503).json({
+//     Message: "Site is Undermaintanance please try after sometime",
+//   });
+// });
+
 app.use(bodyParser.json());
 
 app.use("/", routes);

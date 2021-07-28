@@ -2,11 +2,31 @@
 const TaskMD = require("../models/Task");
 
 exports.fetchtask = (req, res) => {
-  TaskMD.find()
+  const { Completed, Limit = 1 } = req.query;
+  let filters = {};
+
+  if (Completed) {
+    filters.Completed = Completed;
+  }
+
+  TaskMD.find(filters)
     .then((result) => {
+      let page_size = 3;
+
+      let temp;
+
+      function paginate(array, page_size, page_number) {
+        return array.slice(
+          (page_number - 1) * page_size,
+          page_number * page_size
+        );
+      }
+
+      temp = paginate(result, page_size, Limit);
+
       res.status(201).json({
         message: "Task Fetched",
-        Tasks: result,
+        Tasks: temp,
       });
     })
     .catch((err) => {
