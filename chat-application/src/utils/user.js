@@ -12,7 +12,7 @@ const addUser = ({ id, username, room }) => {
     };
   }
 
-  //checking for existing user
+  //checking for existing user in particular room
   const existinguser = users.find((user) => {
     return user.room === room && user.username === username;
   });

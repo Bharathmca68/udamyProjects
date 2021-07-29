@@ -35,7 +35,7 @@ io.on("connection", (socket) => {
     socket.emit("Message", generateMessage(user.username, "Welcome...!")); //sends to everyone
     socket.broadcast
       .to(user.room)
-      .emit("Message", generateMessage(`${user.username} has joined...!`)); // send everone except the current user
+      .emit("Message", generateMessage(`${user.username} has joined...!`)); // send everone except the current user where the used is in online
     io.to(user.room).emit("roomData", {
       room: user.room,
       users: getUsersInRoom(user.room),
@@ -43,7 +43,7 @@ io.on("connection", (socket) => {
     callback();
   });
 
-  //   socket.emit("countUpdated", count);
+  //   socket.emit("countUpdated", count); emitting from this file can be accessable in another file
 
   socket.on("sendMsg", (msg, callback) => {
     const user = getUser(socket.id);
@@ -56,6 +56,7 @@ io.on("connection", (socket) => {
     callback();
   });
 
+  //sending geo locations
   socket.on("sendlocation", (coords, callback) => {
     const user = getUser(socket.id);
     io.to(user.room).emit("LocationMessage", {
