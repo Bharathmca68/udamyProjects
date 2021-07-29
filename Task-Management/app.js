@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const logger = require("../Task-Management/logger");
 const mongoose = require("mongoose");
 const routes = require("./routes/index");
 const bodyParser = require("body-parser");
@@ -10,12 +11,12 @@ const port = process.env.PORT || 3020;
 
 //middleware
 
-// app.use((req, res, next) => {
-//   console.log(req.method, req.path); //winston log to be implemented
-//   next();
-// });
+app.use((req, res, next) => {
+  logger.info(` ${req.method} ${req.path} Method`); // will record all the ports informations
+  next();
+});
 
-//handling maintanance
+//handling maintanance of routes
 // app.use((req, res, next) => {
 //   res.status(503).json({
 //     Message: "Site is Undermaintanance please try after sometime",

@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const path = require("path");
+const check_Auth = require("../middleware/chech-auth");
 
 const storage = multer.diskStorage({
   destination: "./upload/images",
@@ -31,6 +32,7 @@ router.patch("/updatetask/:id", Taskcontroller.UpdateTask);
 router.post("/signin", Usercontroller.signin);
 router.post("/login", Usercontroller.login);
 
+//Routes for file upload
 router.post("/upload", upload.single("profile"), Usercontroller.imgupload);
 
 module.exports = router;

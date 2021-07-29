@@ -1,7 +1,7 @@
 require("dotenv").config();
 const UserMD = require("../models/User");
 const bcrypt = require("bcrypt");
-const crypto = require("crypto");
+// const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 
 exports.imgupload = (req, res) => {
